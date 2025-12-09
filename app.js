@@ -1,34 +1,52 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
+// Настройка кнопки подтверждения
 tg.MainButton.textColor = "#FFFFFF";
 tg.MainButton.color = "#2cab37";
 
-let item = "";
+// Переменная для хранения выбранного товара/категории
+let selectedItem = "";
 
-let btn1 = document.getElementById("btn1");
-let btn2 = document.getElementById("btn2");
+// Получаем кнопки из HTML
+let btnSportwear = document.getElementById("btnSportwear");
+let btnFootwear = document.getElementById("btnFootwear");
+let btnAccessories = document.getElementById("btnAccessories");
 
-btn1.addEventListener("click", function () {
+// Обработчик для "Спортивная одежда"
+btnSportwear.addEventListener("click", function () {
     if (tg.MainButton.isVisible) {
         tg.MainButton.hide();
     } else {
-        tg.MainButton.setText("Вывести информацию по Овну");
-        item = "1";
+        tg.MainButton.setText("Посмотреть спортивную одежду");
+        selectedItem = "sportwear";
         tg.MainButton.show();
     }
 });
 
-btn2.addEventListener("click", function () {
+// Обработчик для "Обувь"
+btnFootwear.addEventListener("click", function () {
     if (tg.MainButton.isVisible) {
         tg.MainButton.hide();
     } else {
-        tg.MainButton.setText("Вывести информацию по Тельцу");
-        item = "2";
+        tg.MainButton.setText("Посмотреть обувь");
+        selectedItem = "footwear";
         tg.MainButton.show();
     }
 });
 
+// Обработчик для "Аксессуары"
+btnAccessories.addEventListener("click", function () {
+    if (tg.MainButton.isVisible) {
+        tg.MainButton.hide();
+    } else {
+        tg.MainButton.setText("Посмотреть аксессуары");
+        selectedItem = "accessories";
+        tg.MainButton.show();
+    }
+});
+
+// Отправляем данные в Telegram при нажатии на MainButton
 Telegram.WebApp.onEvent("mainButtonClicked", function () {
-    tg.sendData(item);
+    tg.sendData(selectedItem);
 });
